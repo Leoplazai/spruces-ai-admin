@@ -1,3 +1,35 @@
+// Add to your imports
+import AddCustomerForm from './AddCustomerForm';
+
+const CustomerList = () => {
+  // Add this state near your other state declarations
+  const [showAddForm, setShowAddForm] = useState(false);
+
+  // Add this function to handle new customer submission
+  const handleAddCustomer = (newCustomer) => {
+    // This is where you'll integrate with your database later
+    console.log('New customer:', newCustomer);
+    // For now, just close the form
+    setShowAddForm(false);
+  };
+
+  // Update your "Add New" button in the header to:
+  <button 
+    onClick={() => setShowAddForm(true)} 
+    className="flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+  >
+    <UserPlus className="w-4 h-4 mr-2" />
+    Add New
+  </button>
+
+  // Add this before the closing return statement
+  {showAddForm && (
+    <AddCustomerForm
+      onClose={() => setShowAddForm(false)}
+      onSubmit={handleAddCustomer}
+    />
+  )}
+
 import React, { useState } from 'react';
 import { 
   UserPlus, 
