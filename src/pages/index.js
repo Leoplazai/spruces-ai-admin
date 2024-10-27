@@ -1,3 +1,4 @@
+import CustomerList from '../components/Customers/CustomerList';
 import React, { useState } from 'react';
 import Head from 'next/head';
 import { 
@@ -60,7 +61,7 @@ const AdminDashboard = () => {
     </div>
   );
 
-  return (
+return (
     <div>
       <Head>
         <title>Spruces AI Admin</title>
@@ -110,7 +111,12 @@ const AdminDashboard = () => {
 
           {/* Main Content */}
           <div className="flex-1 p-6 overflow-auto">
-            <OverviewSection />
+            {activeTab === 'overview' && <OverviewSection />}
+            {activeTab === 'customers' && <CustomerList />}
+            {activeTab === 'bookings' && <div>Bookings Content</div>}
+            {activeTab === 'cleaners' && <div>Cleaners Content</div>}
+            {activeTab === 'billing' && <div>Billing Content</div>}
+            {activeTab === 'chat' && <div>Chat Content</div>}
           </div>
         </div>
       </div>
