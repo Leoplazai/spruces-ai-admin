@@ -129,4 +129,5 @@ const AddCustomerForm = ({ onClose, onSubmit }) => {
   );
 };
 
+
 export default AddCustomerForm;
