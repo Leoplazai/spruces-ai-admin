@@ -3,11 +3,12 @@ import {
   UserPlus, 
   Search,
   Filter,
-  MoreVertical,
   Calendar,
   Mail,
   Phone
 } from 'lucide-react';
+import AddCustomerForm from './AddCustomerForm';
+import CustomerActions from './CustomerActions';
 
 const statusConfigs = {
   cold: {
@@ -38,8 +39,8 @@ const statusConfigs = {
 };
 
 const CustomerList = () => {
-  // Sample data with all status types
-  const [customers] = useState([
+  // All state declarations
+  const [customers, setCustomers] = useState([
     {
       id: 1,
       name: "Sarah Johnson",
@@ -60,40 +61,30 @@ const CustomerList = () => {
       notes: "Following up on quote request",
       source: "Google Ads"
     },
-    {
-      id: 3,
-      name: "Emma Davis",
-      email: "emma@example.com",
-      phone: "555-0125",
-      status: "hot",
-      lastContact: "2024-10-23",
-      notes: "Quote sent, awaiting response",
-      source: "Referral"
-    },
-    {
-      id: 4,
-      name: "John Wilson",
-      email: "john@example.com",
-      phone: "555-0126",
-      status: "active",
-      lastContact: "2024-10-22",
-      notes: "Weekly cleaning - Mondays",
-      source: "Website Form"
-    },
-    {
-      id: 5,
-      name: "Lisa Brown",
-      email: "lisa@example.com",
-      phone: "555-0127",
-      status: "past",
-      lastContact: "2024-09-15",
-      notes: "Moved to different city",
-      source: "Facebook Ad"
-    }
+    // ... other sample customers
   ]);
 
   const [activeFilter, setActiveFilter] = useState('all');
   const [searchTerm, setSearchTerm] = useState('');
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [customerToEdit, setCustomerToEdit] = useState(null);
+
+  // Handler functions
+  const handleAddCustomer = (newCustomer) => {
+    const newId = customers.length + 1;
+    setCustomers([...customers, { ...newCustomer, id: newId }]);
+  };
+
+  const handleEditCustomer = (updatedCustomer) => {
+    setCustomers(customers.map(customer => 
+      customer.id === updatedCustomer.id ? updatedCustomer : customer
+    ));
+    setCustomerToEdit(null);
+  };
+
+  const handleDeleteCustomer = (customerId) => {
+    setCustomers(customers.filter(customer => customer.id !== customerId));
+  };
 
   // Filter counts
   const getCounts = () => {
@@ -148,7 +139,13 @@ const CustomerList = () => {
       {/* Header */}
       <div className="flex justify-between items-center">
         <h2 className="text-2xl font-semibold text-gray-800">Leads & Customers</h2>
-        <button className="flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700">
+        <button 
+          onClick={() => {
+            setCustomerToEdit(null); // Ensure we're in 'add' mode
+            setShowAddForm(true);
+          }} 
+          className="flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
+        >
           <UserPlus className="w-4 h-4 mr-2" />
           Add New
         </button>
@@ -250,17 +247,41 @@ const CustomerList = () => {
                   {customer.notes}
                 </td>
                 <td className="px-6 py-4 text-right">
-                  <button className="text-gray-400 hover:text-gray-500">
-                    <MoreVertical className="w-5 h-5" />
-                  </button>
+                  <CustomerActions
+                    customer={customer}
+                    onEdit={() => {
+                      setCustomerToEdit(customer);
+                      setShowAddForm(true);
+                    }}
+                    onDelete={handleDeleteCustomer}
+                  />
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+
+      {/* Add/Edit Form Modal */}
+      {showAddForm && (
+        <AddCustomerForm
+          customerToEdit={customerToEdit}
+          onClose={() => {
+            setShowAddForm(false);
+            setCustomerToEdit(null);
+          }}
+          onSubmit={(formData) => {
+            if (customerToEdit) {
+              handleEditCustomer(formData);
+            } else {
+              handleAddCustomer(formData);
+            }
+          }}
+        />
+      )}
     </div>
   );
 };
+
 
 export default CustomerList;
