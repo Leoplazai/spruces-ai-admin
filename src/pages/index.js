@@ -1,4 +1,3 @@
-import CustomerList from '../components/Customers/CustomerList';
 import React, { useState } from 'react';
 import Head from 'next/head';
 import { 
@@ -8,13 +7,11 @@ import {
   Bell, 
   Home,
   Clock,
-  Plus,
-  Edit,
-  MessageSquare,
-  UserPlus,
-  MessagesSquare,
-  Trash2
+  MessagesSquare
 } from 'lucide-react';
+
+import CustomerList from '../components/Customers/CustomerList';
+import BookingsView from '../components/Bookings/BookingsView';
 
 const AdminDashboard = () => {
   // Brand colors
@@ -27,10 +24,9 @@ const AdminDashboard = () => {
     black: '#000000'
   };
 
-  // States
   const [activeTab, setActiveTab] = useState('overview');
 
-  // Sample Data
+  // Sample data
   const stats = {
     totalBookings: 156,
     activeCleaners: 24,
@@ -61,7 +57,7 @@ const AdminDashboard = () => {
     </div>
   );
 
-return (
+  return (
     <div>
       <Head>
         <title>Spruces AI Admin</title>
@@ -110,10 +106,10 @@ return (
           </div>
 
           {/* Main Content */}
-          <div className="flex-1 p-6 overflow-auto">
+          <div className="flex-1 overflow-auto">
             {activeTab === 'overview' && <OverviewSection />}
             {activeTab === 'customers' && <CustomerList />}
-            {activeTab === 'bookings' && <div>Bookings Content</div>}
+            {activeTab === 'bookings' && <BookingsView />}
             {activeTab === 'cleaners' && <div>Cleaners Content</div>}
             {activeTab === 'billing' && <div>Billing Content</div>}
             {activeTab === 'chat' && <div>Chat Content</div>}
