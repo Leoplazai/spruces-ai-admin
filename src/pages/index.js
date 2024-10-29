@@ -7,13 +7,15 @@ import {
   Bell, 
   Home,
   Clock,
-  Plus,
-  Edit,
-  MessageSquare,
-  UserPlus,
-  MessagesSquare,
-  Trash2
+  MessagesSquare
 } from 'lucide-react';
+
+// Import all components
+import CustomerList from '../components/Customers/CustomerList';
+import BookingsView from '../components/Bookings/BookingsView';
+import CleanerDetails from '../components/Cleaners/CleanerDetails';
+import BillingDashboard from '../components/Billing/BillingDashboard';
+import ChatDashboard from '../components/Chat/ChatDashboard';
 
 const AdminDashboard = () => {
   // Brand colors
@@ -26,10 +28,9 @@ const AdminDashboard = () => {
     black: '#000000'
   };
 
-  // States
   const [activeTab, setActiveTab] = useState('overview');
 
-  // Sample Data
+  // Sample data
   const stats = {
     totalBookings: 156,
     activeCleaners: 24,
@@ -109,8 +110,13 @@ const AdminDashboard = () => {
           </div>
 
           {/* Main Content */}
-          <div className="flex-1 p-6 overflow-auto">
-            <OverviewSection />
+          <div className="flex-1 overflow-auto">
+            {activeTab === 'overview' && <OverviewSection />}
+            {activeTab === 'customers' && <CustomerList />}
+            {activeTab === 'bookings' && <BookingsView />}
+            {activeTab === 'cleaners' && <CleanerDetails />}
+            {activeTab === 'billing' && <BillingDashboard />}
+            {activeTab === 'chat' && <ChatDashboard />}
           </div>
         </div>
       </div>
