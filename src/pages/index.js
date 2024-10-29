@@ -11,11 +11,11 @@ import {
 } from 'lucide-react';
 
 // Import all components
-import CustomerList from '../components/Customers/CustomerList';
-import BookingsView from '../components/Bookings/BookingsView';
-import CleanersList from '../components/Cleaners/CleanersList';
-import BillingDashboard from '../components/Billing/BillingDashboard';
-import ChatDashboard from '../components/Chat/ChatDashboard';
+import CustomerList from '../components/Customers/CustomerList.jsx';
+import BookingsView from '../components/Bookings/BookingsView.jsx';
+import CleanersList from '../components/Cleaners/CleanersList.jsx';
+import BillingDashboard from '../components/Billing/BillingDashboard.jsx';
+import ChatDashboard from '../components/Chat/ChatDashboard.jsx';
 
 const AdminDashboard = () => {
   // Brand colors
