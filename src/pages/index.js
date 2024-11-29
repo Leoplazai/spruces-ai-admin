@@ -10,15 +10,10 @@ import {
   MessagesSquare
 } from 'lucide-react';
 
-// Import all components
-import CustomerList from '../components/Customers/CustomerList';
-import BookingsView from '../components/Bookings/BookingsView';
-import CleanerDetails from '../components/Cleaners/CleanerDetails';
-import BillingDashboard from '../components/Billing/BillingDashboard';
+// Only import Chat for now
 import ChatDashboard from '../components/Chat/ChatDashboard';
 
 const AdminDashboard = () => {
-  // Brand colors
   const colors = {
     lime: '#c7d66b',
     forest: '#1b3630',
@@ -30,34 +25,11 @@ const AdminDashboard = () => {
 
   const [activeTab, setActiveTab] = useState('overview');
 
-  // Sample data
-  const stats = {
-    totalBookings: 156,
-    activeCleaners: 24,
-    pendingRequests: 8,
-    revenue: 12580
-  };
-
-  // Component: Overview Section
+  // Basic Overview Section
   const OverviewSection = () => (
     <div className="space-y-6">
       <h2 className="text-2xl font-semibold" style={{ color: colors.forest }}>Dashboard Overview</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <StatCard icon={Calendar} color={colors.aqua} title="Total Bookings" value={stats.totalBookings} />
-        <StatCard icon={Users} color={colors.lime} title="Active Cleaners" value={stats.activeCleaners} />
-        <StatCard icon={Clock} color={colors.forest} title="Pending Requests" value={stats.pendingRequests} />
-        <StatCard icon={DollarSign} color={colors.aqua} title="Revenue" value={`$${stats.revenue}`} />
-      </div>
-    </div>
-  );
-
-  const StatCard = ({ icon: Icon, color, title, value }) => (
-    <div className="bg-white p-6 rounded-lg shadow-sm">
-      <div className="flex items-center space-x-2">
-        {Icon && <Icon className="w-5 h-5" style={{ color }} />}
-        <span className="text-gray-600 font-medium">{title}</span>
-      </div>
-      <p className="text-2xl font-semibold mt-2">{value}</p>
+      <p>Overview content will be added later.</p>
     </div>
   );
 
@@ -112,11 +84,14 @@ const AdminDashboard = () => {
           {/* Main Content */}
           <div className="flex-1 overflow-auto">
             {activeTab === 'overview' && <OverviewSection />}
-            {activeTab === 'customers' && <CustomerList />}
-            {activeTab === 'bookings' && <BookingsView />}
-            {activeTab === 'cleaners' && <CleanerDetails />}
-            {activeTab === 'billing' && <BillingDashboard />}
             {activeTab === 'chat' && <ChatDashboard />}
+            {/* Other tabs will show placeholder message */}
+            {['customers', 'bookings', 'cleaners', 'billing'].includes(activeTab) && (
+              <div className="p-6">
+                <h2 className="text-2xl font-semibold text-gray-800">Coming Soon</h2>
+                <p className="text-gray-600 mt-2">This feature is under development.</p>
+              </div>
+            )}
           </div>
         </div>
       </div>
