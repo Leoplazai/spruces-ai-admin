@@ -7,8 +7,8 @@ import {
   Mail,
   Phone
 } from 'lucide-react';
-import AddCustomerForm from './AddCustomerForm';
-import CustomerActions from './CustomerActions';
+import AddCustomerForm from './AddCustomerForm.jsx';
+import CustomerActions from './CustomerActions.jsx';
 
 const statusConfigs = {
   cold: {
