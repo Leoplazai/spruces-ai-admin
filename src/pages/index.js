@@ -1,3 +1,4 @@
+import CustomerList from '../components/Customers/CustomerList';
 import React, { useState } from 'react';
 import Head from 'next/head';
 import { 
@@ -61,7 +62,7 @@ const AdminDashboard = () => {
     </div>
   );
 
-  return (
+return (
     <div>
       <Head>
         <title>Spruces AI Admin</title>
