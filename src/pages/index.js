@@ -18,7 +18,6 @@ import BillingDashboard from '../components/Billing/BillingDashboard.jsx';
 import ChatDashboard from '../components/Chat/ChatDashboard.jsx';
 
 const AdminDashboard = () => {
-  // Brand colors
   const colors = {
     lime: '#c7d66b',
     forest: '#1b3630',
@@ -30,7 +29,7 @@ const AdminDashboard = () => {
 
   const [activeTab, setActiveTab] = useState('overview');
 
-  // Sample data
+  // Stats data
   const stats = {
     totalBookings: 156,
     activeCleaners: 24,
@@ -38,7 +37,16 @@ const AdminDashboard = () => {
     revenue: 12580
   };
 
-  // Component: Overview Section
+  const StatCard = ({ icon: Icon, color, title, value }) => (
+    <div className="bg-white p-6 rounded-lg shadow-sm">
+      <div className="flex items-center space-x-2">
+        {Icon && <Icon className="w-5 h-5" style={{ color }} />}
+        <span className="text-gray-600 font-medium">{title}</span>
+      </div>
+      <p className="text-2xl font-semibold mt-2">{value}</p>
+    </div>
+  );
+
   const OverviewSection = () => (
     <div className="space-y-6">
       <h2 className="text-2xl font-semibold" style={{ color: colors.forest }}>Dashboard Overview</h2>
@@ -48,16 +56,6 @@ const AdminDashboard = () => {
         <StatCard icon={Clock} color={colors.forest} title="Pending Requests" value={stats.pendingRequests} />
         <StatCard icon={DollarSign} color={colors.aqua} title="Revenue" value={`$${stats.revenue}`} />
       </div>
-    </div>
-  );
-
-  const StatCard = ({ icon: Icon, color, title, value }) => (
-    <div className="bg-white p-6 rounded-lg shadow-sm">
-      <div className="flex items-center space-x-2">
-        {Icon && <Icon className="w-5 h-5" style={{ color }} />}
-        <span className="text-gray-600 font-medium">{title}</span>
-      </div>
-      <p className="text-2xl font-semibold mt-2">{value}</p>
     </div>
   );
 
@@ -110,7 +108,7 @@ const AdminDashboard = () => {
           </div>
 
           {/* Main Content */}
-          <div className="flex-1 overflow-auto">
+          <div className="flex-1 p-6 overflow-auto">
             {activeTab === 'overview' && <OverviewSection />}
             {activeTab === 'customers' && <CustomerList />}
             {activeTab === 'bookings' && <BookingsView />}
